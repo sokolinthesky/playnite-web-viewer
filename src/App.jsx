@@ -95,17 +95,19 @@ function App() {
           </h1>
           <FileUpload onFileLoad={handleFileLoad} isLoading={isLoading} />
           {games.length > 0 && (
-            <SearchBar 
-              value={searchQuery}
-              onChange={setSearchQuery}
-              resultCount={filteredGames.length}
-              totalCount={games.length}
-            />
+            <div className="hidden md:block">
+              <SearchBar 
+                value={searchQuery}
+                onChange={setSearchQuery}
+                resultCount={filteredGames.length}
+                totalCount={games.length}
+              />
+            </div>
           )}
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 py-4">
+      <div className="max-w-4xl mx-auto px-4 py-4 pb-20 md:pb-4">
         {isLoadingFromDB && (
           <div className="text-center py-12">
             <p className="text-gray-500">Loading stored games...</p>
@@ -140,6 +142,20 @@ function App() {
           </>
         )}
       </div>
+
+      {/* Mobile Search Bar - Fixed at bottom */}
+      {games.length > 0 && (
+        <div className="fixed bottom-0 left-0 right-0 z-20 bg-white border-t border-gray-200 shadow-lg md:hidden">
+          <div className="px-4 py-3">
+            <SearchBar 
+              value={searchQuery}
+              onChange={setSearchQuery}
+              resultCount={filteredGames.length}
+              totalCount={games.length}
+            />
+          </div>
+        </div>
+      )}
     </div>
   )
 }
