@@ -37,4 +37,38 @@ export function formatPlaytime(seconds) {
   }
 }
 
+export function getPlatformNames(platforms) {
+  if (!platforms) {
+    return null
+  }
+  
+  // Handle array of platform objects
+  if (Array.isArray(platforms)) {
+    const names = platforms
+      .map(platform => {
+        if (typeof platform === 'string') {
+          return platform
+        }
+        if (typeof platform === 'object' && platform.Name) {
+          return platform.Name
+        }
+        return null
+      })
+      .filter(name => name !== null)
+    
+    return names.length > 0 ? names : null
+  }
+  
+  // Handle single platform object or string (for backwards compatibility)
+  if (typeof platforms === 'string') {
+    return [platforms]
+  }
+  
+  if (typeof platforms === 'object' && platforms.Name) {
+    return [platforms.Name]
+  }
+  
+  return null
+}
+
 
